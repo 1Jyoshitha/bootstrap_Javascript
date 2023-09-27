@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 5</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f8f8f8;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="text"], input[type="email"], input[type="url"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .error {
+            color: red;
+        }
+        .error-border {
+            border-color: red;
+        }
+    </style>
+</head>
+<body>
+        <form id="contactForm">
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" size="40" name="name">
+                <div class="error" id="nameError"></div>
+            </div>
+
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+                <div class="error" id="emailError"></div>
+            </div>
+
+            <div>
+                <label for="website">Website:</label>
+                <input type="url" id="website" name="website">
+                <div class="error" id="websiteError"></div>
+            </div>
+
+            <div>
+                <label for="message">Message:</label>
+                <textarea id="message" name="message"></textarea>
+                <div class="error" id="messageError"></div>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+
+    <script>
+        const form = document.getElementById("contactForm");
+        form.addEventListener("submit", function(event) {
+            let valid = true;
+            const errorElements = document.querySelectorAll(".error");
+            for (const errorElement of errorElements) {
+                errorElement.textContent = "";
+            }
+            const errorInputElements = document.querySelectorAll(".error-border");
+            for (const errorInputElement of errorInputElements) {
+                errorInputElement.classList.remove("error-border");
+            }
+            const nameInput = document.getElementById("name");
+            if (nameInput.value.trim() === "") {
+                const nameError = document.getElementById("nameError");
+                nameError.textContent = "This field is required";
+                nameInput.classList.add("error-border");
+                valid = false;
+            }
+            const emailInput = document.getElementById("email");
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            if (!emailRegex.test(emailInput.value)) {
+                const emailError = document.getElementById("emailError");
+                emailError.textContent = "A Valid email address is required";
+                emailInput.classList.add("error-border");
+                valid = false;
+            }
+            const websiteInput = document.getElementById("website");
+            const websiteRegex = /^(http(s)?:\/\/)?(www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/;
+            if (!websiteRegex.test(websiteInput.value)) {
+                const websiteError = document.getElementById("websiteError");
+                websiteError.textContent = "A Valid URL is required";
+                websiteInput.classList.add("error-border");
+                valid = false;
+            }
+            const messageInput = document.getElementById("message");
+            if (messageInput.value.trim() === "") {
+                const messageError = document.getElementById("messageError");
+                messageError.textContent = "This field is required";
+                messageInput.classList.add("error-border");
+                valid = false;
+            }
+
+            if (!valid) {
+                event.preventDefault(); 
+            }
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 6</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
+    <style>
+        .invalid-feedback {
+            color: red;
+        }
+    </style>
+    <div class="card">
+        <article class="card-body col-md-6 mx-auto bg-light" style="max-width: 600px;"><br><br>
+            <form id="myForm">
+                <label for="first-name" class="col-md-4 control-label font-weight-bold">NAME</label>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input id="name" name="name" class="form-control" placeholder="Name" type="text" required>
+                        <div class="invalid-feedback" id="name-error"></div>
+                    </div>
+                </div>
+                <label class="col-md-4 control-label font-weight-bold">E-mail</label>
+                <div class="form-group input-group">
+                    <input id="email" name="email" class="form-control" placeholder="E-mail" type="email" required>
+                    <div class="invalid-feedback" id="email-error"></div>
+                </div>
+                <label class="col-md-4 control-label font-weight-bold">Password</label>
+                <div class="form-group input-group">
+                    <input id="password" name="password" class="form-control" placeholder="password" type="password" required>
+                    <div class="invalid-feedback" id="password-error"></div>
+                </div>
+                <label for="state" class="col-md-4 control-label font-weight-bold">Hobbies</label>
+                <div class="form-group">
+                    <div class="input-group">
+                        <select id="state" name="state" class="form-control" required>
+                            <option selected>Reading book</option>
+                            <option>Watching Tv</option>
+                            <option>Programming</option>
+                            <option >Planting</option>
+                            <option >Dancing</option>
+                            <option >Trekking</option>
+                        </select>
+                        <div class="invalid-feedback" id="state-error"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="col-md-12 btn btn-danger btn-lg btn-block mx-auto text-white" onclick="validateForm()">Submit</button>
+                </div>
+            </form>
+        </article>
+    </div>
+    <script>
+        function validateForm() {
+            var isValid = true;
+            var inputFields = document.querySelectorAll('input[required], select[required], textarea[required]');
+            
+            inputFields.forEach(function(field) {
+                if (!field.value) {
+                    isValid = false;
+                    field.classList.add('is-invalid');
+                    document.getElementById(field.id + "-error").textContent = field.getAttribute("placeholder") + " is required.";
+                } else {
+                    field.classList.remove('is-invalid');
+                    document.getElementById(field.id + "-error").textContent = "";
+                }
+            });
+
+            if (!isValid) {
+                alert("Please fill in all required fields.");
+            }
+        }
+    </script>
+</body>
